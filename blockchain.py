@@ -6,7 +6,7 @@ from uuid import uuid4
 from flask import Flask
 
 class Blockchain(object):
-  def _init__(self):
+  def __init__(self):
     self.chain = []
     self.current_transactions = []
 
@@ -91,8 +91,6 @@ class Blockchain(object):
     block_string = json.dumps(block, sort_keys=True).encode()
     return hashlib.sha256(block_string).hexdigest()
 
-
-
   @property
   def last_block(self):
     return self.chain[-1]
@@ -120,7 +118,7 @@ def full_chain():
         'chain': blockchain.chain,
         'length': len(blockchain.chain),
     }
-    return jsonify(response), 200
+    return json.dumps(response), 200
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
